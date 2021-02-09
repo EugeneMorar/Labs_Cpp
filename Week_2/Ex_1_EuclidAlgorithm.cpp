@@ -6,13 +6,18 @@ using std::cout;
 
 
 int main() {
-    int a, b;
+    int64_t a, b, r_1, r_2, r_3;;
     cin >> a >> b;
 
-    int r_1 = a, r_2 = b;
-    while (r_1 % r_2 != 0) {
-        r_1 = r_1 % r_2;
-        r_2 = b % r_1;
-    }
+    r_1 = a % b;
+    r_2 = b % r_1;
+    r_3 = r_1 % r_2;
 
+    while (r_3 % r_2 != 0) {
+        r_3 = r_1 % r_2;
+        r_1 = r_2;
+        r_2 = r_3;
+        cout << r_3;
+    }
+    cout << r_2;
     return 0; }
