@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <tuple>
 
 
 using namespace std;
@@ -11,7 +10,7 @@ int main() {
     cin >> M;
     cin >> K;
 
-    vector <tuple<int, int>> coord_list;
+    vector <pair<int, int>> coord_list;
     coord_list.reserve(K);
 
     vector <vector <int>> field;
@@ -20,35 +19,25 @@ int main() {
     vector <int> field_row(M, 0);
 
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++)
         field.push_back(field_row);
-    }
 
     for (int i = 0; i < K; i++) {
         cin >> a;
         cin >> b;
-        coord_list.push_back(make_tuple(a-1, b-1));
+        coord_list.push_back(make_pair(a-1, b-1));
     }
 
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < M; j++) {
-            for (auto it : coord_list) {
-                if ((((get<0>(it) >= i-1) and (get<0>(it) <= i+1))
-                and ((get<1>(it) >= j-1) and (get<1>(it) <= j+1)))
-                and (get<0>(it) != i and get<1>(it) != j))
+    for (auto it : coord_list) {
+        for (int i = it.first - 1; i < it.first + 2; i++) {
+            for (int j = it.second - 1; j < it.second + 2; j++)
+                if (i > -1 and j > -1 and i < N and j < M)
                     (field[i])[j] += 1;
-                if ((get<0>(it) == i and ((get<1>(it) >= j-1) and (get<1>(it) <= j+1)))
-                    and get<1>(it) != j)
-                    (field[i])[j] += 1;
-                if ((get<1>(it) == j and (get<0>(it) >= i-1) and (get<0>(it) <= i+1)
-                and (get<0>(it) != i)))
-                    (field[i])[j] += 1;
-                }
-            }
         }
+    }
 
     for (auto it : coord_list)
-        (field[get<0>(it)])[get<1>(it)] = -1;
+        (field[it.first])[it.second] = -1;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++)
             cout << (field[i])[j] << " ";
