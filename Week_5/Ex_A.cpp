@@ -23,13 +23,12 @@ int main() {
     while (modified_data[iter] != 0) {
         if (modified_data[iter] > 0)
             stacc.push(modified_data[iter]);
+        if (modified_data[iter] < 0 and abs(modified_data[iter]) <= stacc.top() and not stacc.empty())
+            stacc.pop();
         if (modified_data[iter] < 0 and abs(modified_data[iter]) < stacc.top() and not stacc.empty()) {
             top_element = modified_data[iter] + stacc.top();
             stacc.pop();
             stacc.push(top_element); }
-        if (modified_data[iter] < 0 and abs(modified_data[iter]) <= stacc.top() and not stacc.empty()) {
-            stacc.pop();
-        }
         iter++;
     }
     if (stacc.empty())
