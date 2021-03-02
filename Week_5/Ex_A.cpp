@@ -11,6 +11,7 @@ using namespace std;
 int main() {
     int iter = 0, top_element;
     string data;
+
     stack<int> stacc;
     vector<int> modified_data;
 
@@ -23,16 +24,19 @@ int main() {
     while (modified_data[iter] != 0) {
         if (modified_data[iter] > 0)
             stacc.push(modified_data[iter]);
-        if (modified_data[iter] < 0 and abs(modified_data[iter]) <= stacc.top() and not stacc.empty())
-            stacc.pop();
-        if (modified_data[iter] < 0 and abs(modified_data[iter]) < stacc.top() and not stacc.empty()) {
-            top_element = modified_data[iter] + stacc.top();
-            stacc.pop();
-            stacc.push(top_element); }
+        else if (not stacc.empty() and modified_data[iter] < 0) {
+            if (abs(modified_data[iter]) >= stacc.top())
+                stacc.pop();
+            else {
+                top_element = modified_data[iter] + stacc.top();
+                stacc.pop();
+                stacc.push(top_element); }
+        }
+
         iter++;
     }
     if (stacc.empty())
-        cout << -1 << endl;
+        cout << 0 << " " << -1 << endl;
     else
         cout << stacc.size() << " " << stacc.top() << endl;
 
