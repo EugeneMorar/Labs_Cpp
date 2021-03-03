@@ -10,7 +10,7 @@ int main() {
 
     cin >> line;
     for (char & i : line) {
-        if (i == ')' or i == ']' or i == '}' or i == '>')
+        if (i == '(' or i == '[' or i == '{' or i == '<')
             bra.push_back(i);
         else
             ket.push_back(i);
@@ -24,3 +24,4 @@ int main() {
 
     return 0;
 }
+
