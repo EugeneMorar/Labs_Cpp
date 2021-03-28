@@ -47,16 +47,15 @@ void PushBack(List* list, int vol) {
 }
 
 int PopFirst (List* list) {
-    Node* node_to_delete = list->root;
-    int output = node_to_delete->data;
     if (list->root != nullptr) {
-        list->root = list->root->next;
+        int output = list->root->data;
+        list->back->next = list->root->next;
+        delete list->root;
+
+        list->root = list->back->next;
         list->root->prev = list->back;
+        return output;
     }
-    delete node_to_delete->next;
-    delete node_to_delete->prev;
-    delete node_to_delete;
-    return output;
 }
 
 void PrintAll (List* list) {
@@ -67,7 +66,6 @@ void PrintAll (List* list) {
 void Clear(List* list) {
     for (Node* i = list->root; i != list->back; i = i->next)
         delete i;
-    delete list->root;
     delete list->back;
     delete list;
 }
